@@ -9,6 +9,7 @@ Rails.application.routes.draw do
             constraints: ApiConstraints.new(version: 1, default: true) do
     # We are going to list our resources here
       resources :users
+      resources :sessions, only: [:create, :destroy]
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
