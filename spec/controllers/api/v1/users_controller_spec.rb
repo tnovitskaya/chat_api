@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Api::V1::UsersController do
-  before(:each) { request.headers['Accept'] = "application/vnd.localhost:3000.v1" }
+  #before(:each) { request.headers['Accept'] = "application/vnd.localhost:3000.v1" }
 
   describe "GET #show" do
     before(:each) do
