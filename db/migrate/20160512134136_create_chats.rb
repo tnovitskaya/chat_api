@@ -3,8 +3,7 @@ class CreateChats < ActiveRecord::Migration
     create_table :chats do |t|
       t.string  :name
       t.integer :message_id
-      t.integer :sender_id
-      t.integer :recipient_id
+      t.integer :user_id
 
       t.timestamps null: false
     end

@@ -18,6 +18,8 @@ describe User do
   it { should ensure_length_of(:password) }
   it { should validate_uniqueness_of(:auth_token)}
 
+  it { should have_many(:messages) }
+
   describe "#generate_authentication_token!" do
     it "generates a unique token" do
       allow(Devise).to receive(:friendly_token).and_return("token123")

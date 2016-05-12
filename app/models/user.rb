@@ -14,6 +14,13 @@ class User < ActiveRecord::Base
 
   validates :auth_token, uniqueness: true
 
+  has_many :sent_messages, 
+              class_name: 'Message', 
+              foreign_key: 'sender_id' 
+  has_many :messages, foreign_key: 'recipient_id'
+  has_many :user_and_chat_links, dependent: :destroy
+  has_many :chats, through: :user_and_chat_links
+
   def generate_authentication_token!
     begin
       self.auth_token = Devise.friendly_token
