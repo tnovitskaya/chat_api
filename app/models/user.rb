@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :messages, foreign_key: :sender_id
   has_many :user_and_chat_links, dependent: :destroy
   has_many :chats, through: :user_and_chat_links
-  has_many :conversation
+  has_many :conversation, dependent: :destroy
 
   def generate_authentication_token!
     begin

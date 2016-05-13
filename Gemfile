@@ -51,6 +51,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'shoulda-matchers',  '~> 2.5.0', require: false
+  gem 'rspec-collection_matchers'
 end
 
 group :test, :development do

@@ -10,9 +10,7 @@ Rails.application.routes.draw do
     # We are going to list our resources here
       resources :users
       resources :sessions, only: [:create, :destroy]
-      resources :chats do
-        resources :messages
-      end
+      resources :messages
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
