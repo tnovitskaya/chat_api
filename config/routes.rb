@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     # We are going to list our resources here
       resources :users
       resources :sessions, only: [:create, :destroy]
+      resources :chats
       resources :messages
     end
   end
