@@ -4,6 +4,6 @@ class Chat < ActiveRecord::Base
   has_many   :users, through: :user_and_chat_links
   has_many   :messages
 
-  validates :name, :user_id, presence: true
+  validates :name, presence: true
 
 end
