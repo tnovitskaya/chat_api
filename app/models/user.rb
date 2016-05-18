@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  acts_as_reader
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,7 +12,8 @@ class User < ActiveRecord::Base
   validates :username, presence: true, on: [:create, :update]
   validates :password, presence: true, on: :create
   validates :password, confirmation: true, on: :create
-  validates :password, length: { within: Devise.password_length, allow_blank: true}
+  validates :password, length: { within: Devise.password_length,
+                                   allow_blank: true}
 
   validates :auth_token, uniqueness: true
 

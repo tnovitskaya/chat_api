@@ -28,7 +28,7 @@ RSpec.describe Api::V1::UsersController do
         expect(user_response[:username]).to eql @user_attributes[:username]
       end
 
-      it { is_expected.to respond_with 201 }
+      it { is_expected.to respond_with 200 }
     end
 
     context "when is not created" do

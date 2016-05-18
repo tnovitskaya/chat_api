@@ -21,12 +21,4 @@ class ApplicationController < ActionController::Base
     render json: {error: exception.message}.to_json, status: 500
     return
   end
-
-  def load_user
-    if current_user.present?
-      @user = current_user
-    else
-      @user = User.find(params[:user_id])
-    end
-  end
 end

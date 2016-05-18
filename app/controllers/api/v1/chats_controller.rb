@@ -3,29 +3,34 @@ class Api::V1::ChatsController < ApplicationController
   respond_to :json
   
   def index
-    respond_with current_user.chats.all.as_json
+    result = []
+    current_user.chats.all.each do |chat|
+      @chat = chat
+      result << render_chat
+    end
+    render json: result, status: 200
   end
 
   def show
-    chat = current_user.chats.find(params[:id])
-    render json: chat.as_json, status: 200
+    @chat = current_user.chats.find(params[:id])
+    render json: render_chat, status: 200
   end
 
   def create
-    chat = Chat.new(chat_params)
-    if chat.save
-      render json: chat.as_json, status: 200
+    @chat = Chat.new(chat_params)
+    if @chat.save
+      render json: render_chat, status: 200
     else
-      render json: { errors: chat.errors }, status: 400
+      render json: { errors: @chat.errors }, status: 400
     end
   end
 
   def update
-    chat = current_user.chats.find(params[:id])
-    if chat.update(chat_params)
-      render json: chat.as_json, status: 200
+    @chat = current_user.chats.find(params[:id])
+    if @chat.update(chat_params)
+      render json: render_chat, status: 200
     else
-      render json: { errors: chat.errors }, status: 400
+      render json: { errors: @chat.errors }, status: 400
     end
   end
 
@@ -40,4 +45,14 @@ class Api::V1::ChatsController < ApplicationController
   def chat_params
     params.require(:chat).permit(:name, user_ids: [])
   end
+
+  def unread_messages_count
+    Message.unread_by(current_user).count
+  end
+
+  def render_chat
+    @chat.attributes.merge({ unread_messages_count: unread_messages_count,
+                               user_ids: @chat.user_ids})
+  end
+
 end

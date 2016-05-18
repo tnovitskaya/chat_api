@@ -3,22 +3,22 @@ class Api::V1::SessionsController < ApplicationController
   def create
     user_password = params[:session][:password]
     user_username = params[:session][:username]
-    @user = user_username.present? && User.find_by(username: user_username)
+    user = user_username.present? && User.find_by(username: user_username)
 
-    if @user.valid_password? user_password
-      sign_in @user, store: false
-      @user.generate_authentication_token!
-      @user.save
-      render json: @user.as_json, status: 200
+    if user.valid_password? user_password
+      sign_in user, store: false
+      user.generate_authentication_token!
+      user.save
+      render json: { user: user.as_json, auth_token: user.auth_token }, status: 200
     else
       render json: { errors: "Invalid username or password" }, status: 400
     end
   end
 
   def destroy
-    @user = User.find_by(auth_token: params[:id])
-    @user.generate_authentication_token!
-    @user.save
+    user = User.find_by(auth_token: params[:id])
+    user.generate_authentication_token!
+    user.save
     head 204
   end
 
