@@ -1,10 +1,14 @@
 class Message < ActiveRecord::Base
 
-  belongs_to :sender, class_name: 'User'
+  belongs_to :user
   belongs_to :chat
-  has_many   :conversations, dependent: :destroy
-  has_many   :recipients, through: :conversations, class_name: 'User'
 
-  validates :text, :sender_id, :chat_id, presence: true
+  # serialize :readed_by_users, Array
+
+  validates :text, :user_id, :chat_id, presence: true
+
+  def message_time
+    created_at.strftime("%m/%d/%y at %l:%M %p")
+  end
 
 end

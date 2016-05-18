@@ -6,18 +6,17 @@ class User < ActiveRecord::Base
 
   before_create :generate_authentication_token!
 
-  validates_uniqueness_of   :username, :case_sensitive => false, :allow_blank => true
-  validates_presence_of     :username, on: [:create, :update]
-  validates_presence_of     :password, on: :create
-  validates_confirmation_of :password, :on=>:create
-  validates_length_of       :password, :within => Devise.password_length, :allow_blank => true
+  validates :username, uniqueness: true
+  validates :username, presence: true, on: [:create, :update]
+  validates :password, presence: true, on: :create
+  validates :password, confirmation: true, on: :create
+  validates :password, length: { within: Devise.password_length, allow_blank: true}
 
   validates :auth_token, uniqueness: true
 
-  has_many :messages, foreign_key: :sender_id
-  has_many :user_and_chat_links, dependent: :destroy
-  has_many :chats, through: :user_and_chat_links
-  has_many :conversation, dependent: :destroy
+  has_many :messages
+  has_many :chats, through: :conversations
+  has_many :conversations, dependent: :destroy
 
   def generate_authentication_token!
     begin

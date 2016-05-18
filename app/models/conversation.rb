@@ -1,8 +1,8 @@
 class Conversation < ActiveRecord::Base
 
-  belongs_to :message
-  belongs_to :recipient, class_name: 'User'
+  belongs_to :user
+  belongs_to :chat
 
-  validates :recipient_id, :message_id, presence: true
+  #validates :user_id, :chat_id, presence: true
 
 end
