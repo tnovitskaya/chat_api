@@ -8,7 +8,7 @@ class Chat < ActiveRecord::Base
   validates :users, length: { minimum: 2, message: "Please add one more participant to chat" }
 
   def as_json(options={})
-    super(only: [:id,:name], include: { users: { only: [:id] } })
+    super(only: [:id,:name], include: { users: { only: :id } }, methods: :unread_messages_count)
   end
 
 end

@@ -23,4 +23,12 @@ class User < ActiveRecord::Base
       self.auth_token = Devise.friendly_token
     end while self.class.exists?(auth_token: auth_token)
   end
+
+  def as_json(options={})
+    super(only: [:id,:username], methods: :messages_count)
+  end
+
+  def messages_count
+    Message.where(user_id: id).count
+  end
 end

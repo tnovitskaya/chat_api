@@ -7,7 +7,11 @@ class Message < ActiveRecord::Base
 
   validates :text, :user_id, :chat_id, presence: true
 
-  def message_time
+  def as_json(options={})
+    super(only: [:id,:text], :methods => [:created_time], include: { user: { only: [:username] } })
+  end
+
+  def created_time
     created_at.strftime("%m/%d/%y at %l:%M %p")
   end
 
