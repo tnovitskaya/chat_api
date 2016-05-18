@@ -9,7 +9,7 @@ test:
   database: chat_api_test
   pool: 5
   timeout: 5000
-
+  
 production:
   adapter: postgresql
   database: chat_api_production

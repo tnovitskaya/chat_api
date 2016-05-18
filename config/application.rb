@@ -41,7 +41,10 @@ module ChatApi
       g.stylesheets = false
       g.javascripts = false
       g.helper = false
+      g.assets = false
     end
+
+    config.assets.enabled = false
 
     config.autoload_paths += %W(\#{config.root}/lib)
   end
